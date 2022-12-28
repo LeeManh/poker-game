@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 import Card from "components/Card";
 import type { IUser } from "types/user.type";
+import { Button } from "globalStyles.styled";
+import cssVariables from "constants/css";
 
 const Container = styled.div`
   position: absolute;
@@ -19,7 +21,8 @@ const Footer = styled.div`
   margin-top: 2rem;
   display: flex;
   align-items: center;
-  gap: 5rem;
+  gap: 2rem;
+  transform: translateX(-80px);
 `;
 
 const MoneyUser = styled.div`
@@ -37,25 +40,13 @@ const MoneyUser = styled.div`
   border: 2px solid white;
 `;
 
-const ButtonUser = styled.div`
-  border: none;
-  outline: none;
-  color: white;
-  background-color: ${(props: { bg?: string }) => props.bg};
-  font-weight: bold;
-  font-size: 1.6rem;
-  padding: 0.8rem 2rem;
-  border-radius: 4px;
-  text-transform: capitalize;
-  cursor: pointer;
-`;
-
 interface IUserProps {
   user: IUser;
+  handleStartDistributeCards: () => void;
 }
 
 const User = (props: IUserProps) => {
-  const { user } = props;
+  const { user, handleStartDistributeCards } = props;
 
   return (
     <Container>
@@ -65,9 +56,24 @@ const User = (props: IUserProps) => {
         ))}
       </ListCardUser>
       <Footer>
-        <ButtonUser bg="#fe2008">bỏ bài</ButtonUser>
+        <Button
+          width="12rem"
+          bg={cssVariables.colors.red}
+          shadow={cssVariables.colors["red-dark"]}
+        >
+          bỏ bài
+        </Button>
+        <Button
+          width="12rem"
+          bg={cssVariables.colors.green}
+          shadow={cssVariables.colors["green-dark"]}
+        >
+          Lật bài
+        </Button>
         <MoneyUser>{user.money}</MoneyUser>
-        <ButtonUser bg="#4bac02">Lật bài</ButtonUser>
+        <Button width="12rem" onClick={handleStartDistributeCards}>
+          Phát bài
+        </Button>
       </Footer>
     </Container>
   );

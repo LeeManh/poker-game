@@ -9,10 +9,61 @@ import {
 } from "./Tabel.styled";
 
 interface TabelProps {
-  isStartGame: boolean;
+  isStartDistributeCards: boolean;
 }
 
-const Tabel = ({ isStartGame }: TabelProps) => {
+const Tabel = ({ isStartDistributeCards }: TabelProps) => {
+  const variants1 = {
+    initial: { x: 8, y: -8 },
+    end: { x: -92, y: 181, transition: { duration: 1, delay: 0 } },
+  };
+  const variants2 = {
+    initial: { x: 8, y: -8 },
+    end: { x: -2, y: 181, transition: { duration: 1, delay: 0.25 } },
+  };
+  const variants3 = {
+    initial: { x: 8, y: -8 },
+    end: { x: 90, y: 181, transition: { duration: 1, delay: 0.5 } },
+  };
+  const variants4 = {
+    initial: { x: 8, y: -8 },
+    end: { x: -420, y: -2, transition: { duration: 1, delay: 0.75 } },
+  };
+  const variants5 = {
+    initial: { x: 8, y: -8 },
+    end: { x: -420, y: -2, transition: { duration: 1, delay: 1 } },
+  };
+  const variants6 = {
+    initial: { x: 8, y: -8 },
+    end: { x: -420, y: -2, transition: { duration: 1, delay: 1.25 } },
+  };
+
+  const variants7 = {
+    initial: { x: 8, y: -8 },
+    end: { x: 435, y: 2, transition: { duration: 1, delay: 1.75 } },
+  };
+  const variants8 = {
+    initial: { x: 8, y: -8 },
+    end: { x: 435, y: 2, transition: { duration: 1, delay: 2 } },
+  };
+  const variants9 = {
+    initial: { x: 8, y: -8 },
+    end: { x: 435, y: 2, transition: { duration: 1, delay: 2.25 } },
+  };
+
+  const variants10 = {
+    initial: { x: 8, y: -8 },
+    end: { x: -42, y: -253, transition: { duration: 1, delay: 2.5 } },
+  };
+  const variants11 = {
+    initial: { x: 8, y: -8 },
+    end: { x: -42, y: -253, transition: { duration: 1, delay: 2.75 } },
+  };
+  const variants12 = {
+    initial: { x: 8, y: -8 },
+    end: { x: -42, y: -253, transition: { duration: 1, delay: 3 } },
+  };
+
   return (
     <Container>
       <DeckOfCardWrap>
@@ -32,177 +83,92 @@ const Tabel = ({ isStartGame }: TabelProps) => {
           index={2}
         />
         <div>
-          {/* user */}
           <BackSideCardAnimate
             as={motion.img}
             src={images.card.backSideCard}
             alt="backSideCard"
-            initial={{
-              x: 8,
-              y: -8,
-            }}
-            animate={{
-              x: -92,
-              y: 181,
-            }}
-            transition={{ duration: 1, delay: 0 }}
+            variants={variants1}
+            animate={!isStartDistributeCards ? "initial" : "end"}
           />
           <BackSideCardAnimate
             as={motion.img}
             src={images.card.backSideCard}
             alt="backSideCard"
-            initial={{
-              x: 8,
-              y: -8,
-            }}
-            animate={{
-              x: -2,
-              y: 181,
-            }}
-            transition={{ duration: 1, delay: 1 }}
+            variants={variants2}
+            animate={!isStartDistributeCards ? "initial" : "end"}
           />
           <BackSideCardAnimate
             as={motion.img}
             src={images.card.backSideCard}
             alt="backSideCard"
-            initial={{
-              x: 8,
-              y: -8,
-            }}
-            animate={{
-              x: 90,
-              y: 181,
-            }}
-            transition={{ duration: 1, delay: 2 }}
+            variants={variants3}
+            animate={!isStartDistributeCards ? "initial" : "end"}
           />
-          {/* left */}
+
           <BackSideCardAnimate
             as={motion.img}
             src={images.card.backSideCard}
             alt="backSideCard"
-            initial={{
-              x: 8,
-              y: -8,
-            }}
-            animate={{
-              x: -420,
-              y: -2,
-            }}
-            transition={{ duration: 1, delay: 0.25 }}
+            variants={variants4}
+            animate={!isStartDistributeCards ? "initial" : "end"}
           />
           <BackSideCardAnimate
             as={motion.img}
             src={images.card.backSideCard}
             alt="backSideCard"
-            initial={{
-              x: 8,
-              y: -8,
-            }}
-            animate={{
-              x: -420,
-              y: -2,
-            }}
-            transition={{ duration: 1, delay: 1.25 }}
+            variants={variants5}
+            animate={!isStartDistributeCards ? "initial" : "end"}
           />
           <BackSideCardAnimate
             as={motion.img}
             src={images.card.backSideCard}
             alt="backSideCard"
-            initial={{
-              x: 8,
-              y: -8,
-            }}
-            animate={{
-              x: -420,
-              y: -2,
-            }}
-            transition={{ duration: 1, delay: 2.25 }}
+            variants={variants6}
+            animate={!isStartDistributeCards ? "initial" : "end"}
           />
-          {/* right */}
+
           <BackSideCardAnimate
             as={motion.img}
             src={images.card.backSideCard}
             alt="backSideCard"
-            initial={{
-              x: 8,
-              y: -8,
-            }}
-            animate={{
-              x: 435,
-              y: -2,
-            }}
-            transition={{ duration: 1, delay: 0.5 }}
+            variants={variants7}
+            animate={!isStartDistributeCards ? "initial" : "end"}
           />
           <BackSideCardAnimate
             as={motion.img}
             src={images.card.backSideCard}
             alt="backSideCard"
-            initial={{
-              x: 8,
-              y: -8,
-            }}
-            animate={{
-              x: 435,
-              y: -2,
-            }}
-            transition={{ duration: 1, delay: 1.5 }}
+            variants={variants8}
+            animate={!isStartDistributeCards ? "initial" : "end"}
           />
           <BackSideCardAnimate
             as={motion.img}
             src={images.card.backSideCard}
             alt="backSideCard"
-            initial={{
-              x: 8,
-              y: -8,
-            }}
-            animate={{
-              x: 435,
-              y: -2,
-            }}
-            transition={{ duration: 1, delay: 2.5 }}
+            variants={variants9}
+            animate={!isStartDistributeCards ? "initial" : "end"}
           />
-          {/* top */}
+
           <BackSideCardAnimate
             as={motion.img}
             src={images.card.backSideCard}
             alt="backSideCard"
-            initial={{
-              x: 8,
-              y: -8,
-            }}
-            animate={{
-              x: -42,
-              y: -253,
-            }}
-            transition={{ duration: 1, delay: 0.75 }}
+            variants={variants10}
+            animate={!isStartDistributeCards ? "initial" : "end"}
           />
           <BackSideCardAnimate
             as={motion.img}
             src={images.card.backSideCard}
             alt="backSideCard"
-            initial={{
-              x: 8,
-              y: -8,
-            }}
-            animate={{
-              x: -42,
-              y: -253,
-            }}
-            transition={{ duration: 1, delay: 1.75 }}
+            variants={variants11}
+            animate={!isStartDistributeCards ? "initial" : "end"}
           />
           <BackSideCardAnimate
             as={motion.img}
             src={images.card.backSideCard}
             alt="backSideCard"
-            initial={{
-              x: 8,
-              y: -8,
-            }}
-            animate={{
-              x: -42,
-              y: -253,
-            }}
-            transition={{ duration: 1, delay: 2.75 }}
+            variants={variants12}
+            animate={!isStartDistributeCards ? "initial" : "end"}
           />
         </div>
       </DeckOfCardWrap>
