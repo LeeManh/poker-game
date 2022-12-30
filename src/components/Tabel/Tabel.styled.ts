@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 import images from "assets/images";
 
@@ -43,6 +44,28 @@ export const BackSideCardImage = styled.img`
     }
   }}
 `;
-export const BackSideCardAnimate = styled(BackSideCardImage)`
+export const BackSideCardAnimate = styled(motion.img)`
   box-shadow: none;
+  height: 10rem;
+  width: 8rem;
+  cursor: pointer;
+  position: absolute;
+  border-radius: 4px;
+
+  ${(props: { index?: number }) => {
+    switch (props.index) {
+      case 1:
+        return css`
+          top: -4px;
+          left: 4px;
+        `;
+      case 2:
+        return css`
+          top: -8px;
+          left: 8px;
+        `;
+      default:
+        break;
+    }
+  }}
 `;
