@@ -78,10 +78,10 @@ interface IComputer {
   bets: number;
   user: IUser;
   isFlipCard: boolean;
-  winnerPlayer: string | undefined;
+  winnerPlayers: IUser[];
 }
 
-const Computer = ({ user, isFlipCard, winnerPlayer, bets }: IComputer) => {
+const Computer = ({ user, isFlipCard, winnerPlayers, bets }: IComputer) => {
   const pointComputer = user.cards.reduce(
     (sum: number, card: ICard) => sum + card.number,
     0
@@ -91,6 +91,7 @@ const Computer = ({ user, isFlipCard, winnerPlayer, bets }: IComputer) => {
     hide: {
       opacity: 0,
       y: 50,
+      display: "none",
     },
     show: {
       opacity: 1,
@@ -105,6 +106,7 @@ const Computer = ({ user, isFlipCard, winnerPlayer, bets }: IComputer) => {
     hide: {
       opacity: 0,
       y: 100,
+      display: "none",
     },
     show: {
       opacity: 1,
@@ -114,6 +116,8 @@ const Computer = ({ user, isFlipCard, winnerPlayer, bets }: IComputer) => {
       },
     },
   };
+  const checkIsWinner = () =>
+    winnerPlayers.some((winnerPlayer) => winnerPlayer.id === user.id);
 
   return (
     <Container position={user.position}>
@@ -139,8 +143,9 @@ const Computer = ({ user, isFlipCard, winnerPlayer, bets }: IComputer) => {
           variants={moneyBetsVariants}
           animate={isFlipCard ? "show" : "hide"}
         >
-          {winnerPlayer === user.id ? "+" : "-"}
-          {winnerPlayer === user.id ? `${bets * 3} $` : `${bets} $`}
+          {checkIsWinner()
+            ? `+ ${(bets * 3) / winnerPlayers.length} `
+            : `- ${bets}`}
         </MoneyBets>
       </ListCardUser>
     </Container>

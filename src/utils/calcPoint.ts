@@ -11,15 +11,30 @@ const calcPoint = (point: number) => {
 export default calcPoint;
 
 export const findWinner = (listUser: IUser[]) => {
-  const listUserExtraPoint = listUser.map((user) => {
-    const point = user.cards.reduce((sum, card) => sum + card.number, 0);
+  let maxPoint = 0;
+  let arrayWinners: IUser[] = [];
 
-    return { ...user, point: calcPoint(point) };
-  });
+  for (let index = 0; index < listUser.length; index++) {
+    const user = listUser[index];
 
-  const winnerPlayer = listUserExtraPoint.reduce((winner, currentPlayer) => {
-    return winner.point > currentPlayer.point ? winner : currentPlayer;
-  }, listUserExtraPoint[0]);
+    const point = calcPoint(
+      user.cards.reduce((sum, card) => sum + card.number, 0)
+    );
 
-  return winnerPlayer;
+    if (index === 0) {
+      maxPoint = point;
+      arrayWinners.push(user);
+      continue;
+    }
+
+    if (point === maxPoint) {
+      arrayWinners.push(user);
+    } else if (point > maxPoint) {
+      arrayWinners = [];
+      arrayWinners.push(user);
+      maxPoint = point;
+    }
+  }
+
+  return arrayWinners;
 };

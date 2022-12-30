@@ -10,7 +10,7 @@ import calcPoint from "utils/calcPoint";
 interface IUserProps {
   user: IUser;
   bets: number;
-  winnerPlayer: string | undefined;
+  winnerPlayers: IUser[];
   isFlipCard: boolean;
   isEndDistributeCards: boolean;
   isStartDistributeCards: boolean;
@@ -22,7 +22,7 @@ const User = (props: IUserProps) => {
   const {
     user,
     bets,
-    winnerPlayer,
+    winnerPlayers,
     handleStartDistributeCards,
     handleFlipCard,
     isFlipCard,
@@ -38,6 +38,7 @@ const User = (props: IUserProps) => {
     hide: {
       opacity: 0,
       y: 50,
+      display: "none",
     },
     show: {
       opacity: 1,
@@ -51,6 +52,7 @@ const User = (props: IUserProps) => {
     hide: {
       opacity: 0,
       y: 100,
+      display: "none",
     },
     show: {
       opacity: 1,
@@ -60,6 +62,9 @@ const User = (props: IUserProps) => {
       },
     },
   };
+
+  const checkIsWinner = () =>
+    winnerPlayers.some((winnerPlayer) => winnerPlayer.id === user.id);
 
   return (
     <Container>
@@ -79,19 +84,13 @@ const User = (props: IUserProps) => {
           variants={moneyBetsVariants}
           animate={isFlipCard ? "show" : "hide"}
         >
-          {winnerPlayer === user.id ? "+" : "-"}
-          {winnerPlayer === user.id ? `${bets * 3} $` : `${bets} $`}
+          {checkIsWinner()
+            ? `+ ${(bets * 3) / winnerPlayers.length} `
+            : `- ${bets}`}
         </MoneyBets>
       </ListCardUser>
 
       <Footer>
-        <Button
-          width="12rem"
-          bg={cssVariables.colors.red}
-          shadow={cssVariables.colors["red-dark"]}
-        >
-          bỏ bài
-        </Button>
         <Button
           width="12rem"
           bg={cssVariables.colors.green}

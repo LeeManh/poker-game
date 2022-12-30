@@ -6,11 +6,12 @@ import type { IUser } from "types/user.type";
 import User from "components/User";
 import Computer from "components/Computer";
 import Tabel from "components/Tabel";
-import { Button, Point } from "globalStyles.styled";
+import { Button } from "globalStyles.styled";
 import { getRandomCards } from "utils/getDeckOfCard";
 import { findWinner } from "utils/calcPoint";
 import { motion, Variants } from "framer-motion";
 import cssVariables from "constants/css";
+import { dataUsers } from "data/users";
 
 const Container = styled.div`
   position: relative;
@@ -78,51 +79,9 @@ const App = () => {
   const [showNotification, setShowNotification] = useState(false);
   const bets = 100;
 
-  const [listUser, setListUser] = useState<IUser[]>([
-    {
-      id: "1",
-      position: "bottom",
-      typeUser: "player",
-      avatar: "",
-      cards: [],
-      money: 1000,
-      name: "leemanh",
-    },
-    {
-      id: "2",
-      position: "left",
-      typeUser: "computer",
-      avatar:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      cards: [],
-      money: 5000,
-      name: "Long",
-    },
-    {
-      id: "3",
-      position: "top",
-      typeUser: "computer",
-      avatar:
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80",
-      cards: [],
-      money: 5000,
-      name: "Quyết ĐK",
-    },
-    {
-      id: "4",
-      position: "right",
-      typeUser: "computer",
-      avatar:
-        "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      cards: [],
-      money: 5000,
-      name: "Tân",
-    },
-  ]);
+  const [listUser, setListUser] = useState<IUser[]>(dataUsers as IUser[]);
 
-  const [winnerPlayer, setWinnerPlayer] = useState<
-    (IUser & { point: number }) | null
-  >(null);
+  const [winnerPlayers, setWinnerPlayers] = useState<IUser[]>([]);
 
   const variants: Variants = {
     hide: {
@@ -139,7 +98,10 @@ const App = () => {
   };
 
   const handleStartDistributeCards = () => {
+    if (isFlipCard) return;
+
     setIsStartDistributeCards(true);
+    setWinnerPlayers([]);
 
     const listCardsRandom = getRandomCards();
     const cardsUser = listCardsRandom.slice(0, 3);
@@ -158,27 +120,49 @@ const App = () => {
   };
 
   const handleFlipCard = () => {
+    if (isFlipCard) return;
+
     setIsFlipCard(true);
 
-    const winner = findWinner(listUser);
+    const arrayWinners = findWinner(listUser);
+    // console.log("arrayWinners", arrayWinners);
+
+    const idsWinners = arrayWinners.map((user) => user.id);
 
     let _listUser: IUser[] = JSON.parse(JSON.stringify(listUser));
 
     _listUser = _listUser.map((user) =>
-      user.id === winner.id
-        ? { ...user, money: (user.money += bets * 3) }
-        : user
+      idsWinners.includes(user.id)
+        ? { ...user, money: (user.money += (bets * 3) / arrayWinners.length) }
+        : { ...user, money: (user.money -= bets) }
     );
 
     setListUser(_listUser);
-    setWinnerPlayer(winner);
+    setWinnerPlayers(arrayWinners);
 
     setTimeout(() => {
       setShowNotification(true);
-    }, 2000);
+    }, 3000);
   };
 
-  const handleNewRound = () => {};
+  const handleNewRound = () => {
+    setWinnerPlayers([]);
+    setShowNotification(false);
+    setIsFlipCard(false);
+    setIsStartDistributeCards(false);
+    setIsEndDistributeCards(false);
+  };
+
+  const resetNewGame = () => {
+    setIsStartDistributeCards(false);
+    setWinnerPlayers([]);
+    setShowNotification(false);
+    setIsFlipCard(false);
+    setIsStartDistributeCards(false);
+    setIsEndDistributeCards(false);
+    setListUser(dataUsers as IUser[]);
+    setIsStartGame(false);
+  };
 
   useEffect(() => {
     if (!isStartDistributeCards) return;
@@ -203,9 +187,9 @@ const App = () => {
               <NotificationWrap>
                 <WinnerUser
                   variants={variants}
-                  animate={winnerPlayer ? "show" : "hide"}
+                  animate={winnerPlayers.length > 0 ? "show" : "hide"}
                 >
-                  {winnerPlayer?.name} Win 🎉
+                  {winnerPlayers.map((user) => user.name)} Win 🎉
                 </WinnerUser>
                 <NewGameButton onClick={handleNewRound}>
                   New Round
@@ -213,6 +197,7 @@ const App = () => {
                 <QuitGameButton
                   bg={cssVariables.colors.red}
                   shadow={cssVariables.colors["red-dark"]}
+                  onClick={resetNewGame}
                 >
                   Quit
                 </QuitGameButton>
@@ -242,14 +227,14 @@ const App = () => {
               user={user}
               key={user.id}
               isFlipCard={isFlipCard}
-              winnerPlayer={winnerPlayer?.id}
+              winnerPlayers={winnerPlayers}
             />
           );
         }
 
         return (
           <User
-            winnerPlayer={winnerPlayer?.id}
+            winnerPlayers={winnerPlayers}
             bets={bets}
             key={user.id}
             user={user}
