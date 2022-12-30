@@ -18,7 +18,12 @@ export const getDeckOfCard = () => {
   return deckOfCard;
 };
 
-export const getRandomCards = (deckOfCard: DeckOfCard, numberUser: number) => {
+const getRandomIndex = (min: number, max: number) => {
+  return Math.random() * (max - min) + min;
+};
+
+export const getRandomCards = (numberUser: number = 4) => {
+  const deckOfCard = getDeckOfCard();
   const _deckOfCard: DeckOfCard = JSON.parse(JSON.stringify(deckOfCard));
   const listCards = [];
 
@@ -28,7 +33,4 @@ export const getRandomCards = (deckOfCard: DeckOfCard, numberUser: number) => {
   }
 
   return listCards;
-};
-const getRandomIndex = (min: number, max: number) => {
-  return Math.random() * (max - min) + min;
 };

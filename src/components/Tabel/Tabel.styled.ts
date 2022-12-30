@@ -44,7 +44,7 @@ export const BackSideCardImage = styled.img`
     }
   }}
 `;
-export const BackSideCardAnimate = styled(BackSideCardImage)`
+export const BackSideCardAnimate = styled(motion.img)`
   box-shadow: none;
   height: 10rem;
   width: 8rem;

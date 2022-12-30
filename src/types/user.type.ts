@@ -9,5 +9,5 @@ export interface IUser {
   avatar: string;
   name: string;
   money: number;
-  cards: [ICard, ICard, ICard];
+  cards: ICard[];
 }

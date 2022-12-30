@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import cssVariables from "constants/css";
 import styled from "styled-components";
 
@@ -26,6 +27,7 @@ interface IButton {
   bg?: string;
   color?: string;
   shadow?: string;
+  disabled?: boolean;
 }
 
 export const Button = styled.button`
@@ -33,7 +35,7 @@ export const Button = styled.button`
   outline: none;
   padding: 10px 20px;
   width: ${(props: IButton) => props.width || "20rem"};
-  cursor: pointer;
+
   border-radius: 5px;
   background-color: ${(props: IButton) =>
     props.bg || `${cssVariables.colors.yellow}`};
@@ -45,6 +47,7 @@ export const Button = styled.button`
     ${(props: IButton) =>
       props.shadow || `${cssVariables.colors["yellow-dark"]}`};
   transition: 0.2s;
+  cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
 
   &:hover {
     box-shadow: 0 8px 0
@@ -52,4 +55,22 @@ export const Button = styled.button`
         props.shadow || `${cssVariables.colors["yellow-dark"]}`};
     transform: translateY(-2px);
   }
+`;
+export const Point = styled(motion.div)`
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  font-size: 3rem;
+  text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5,
+    -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5,
+    -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
+`;
+export const MoneyBets = styled(motion.div)`
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  font-size: 1.6rem;
+  text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5,
+    -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5,
+    -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
 `;

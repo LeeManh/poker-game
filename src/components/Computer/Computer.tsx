@@ -1,7 +1,12 @@
 import styled, { css } from "styled-components";
 
 import type { IUser, Position } from "types/user.type";
-import images from "assets/images";
+import { ListCardUser } from "components/User/User.styled";
+import Card from "components/Card";
+import { ICard } from "types/card.type";
+import { MoneyBets, Point } from "globalStyles.styled";
+import calcPoint from "utils/calcPoint";
+import { Variants } from "framer-motion";
 
 const Container = styled.div`
   position: absolute;
@@ -68,19 +73,48 @@ const Name = styled.div`
   font-weight: bold;
   text-transform: capitalize;
 `;
-const CardComputerWrap = styled.div``;
-const CardComputerImage = styled.img`
-  height: 10rem;
-  width: 8rem;
-  border-radius: 4px;
-  cursor: pointer;
-`;
 
 interface IComputer {
+  bets: number;
   user: IUser;
+  isFlipCard: boolean;
+  winnerPlayer: string | undefined;
 }
 
-const Computer = ({ user }: IComputer) => {
+const Computer = ({ user, isFlipCard, winnerPlayer, bets }: IComputer) => {
+  const pointComputer = user.cards.reduce(
+    (sum: number, card: ICard) => sum + card.number,
+    0
+  );
+
+  const pointVariants: Variants = {
+    hide: {
+      opacity: 0,
+      y: 50,
+    },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
+
+  const moneyBetsVariants: Variants = {
+    hide: {
+      opacity: 0,
+      y: 100,
+    },
+    show: {
+      opacity: 1,
+      y: 50,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
+
   return (
     <Container position={user.position}>
       <InforWrap>
@@ -90,10 +124,25 @@ const Computer = ({ user }: IComputer) => {
         </AvatarWrap>
         <Money>{user.money}</Money>
       </InforWrap>
-
-      <CardComputerWrap>
-        <CardComputerImage src={images.card.backSideCard} alt="card-computer" />
-      </CardComputerWrap>
+      <ListCardUser>
+        {isFlipCard && (
+          <>
+            {user.cards.map((card, index) => (
+              <Card key={index} card={card} isFlipCard={isFlipCard} />
+            ))}
+          </>
+        )}
+        <Point variants={pointVariants} animate={isFlipCard ? "show" : "hide"}>
+          {calcPoint(pointComputer)} điểm
+        </Point>
+        <MoneyBets
+          variants={moneyBetsVariants}
+          animate={isFlipCard ? "show" : "hide"}
+        >
+          {winnerPlayer === user.id ? "+" : "-"}
+          {winnerPlayer === user.id ? `${bets * 3} $` : `${bets} $`}
+        </MoneyBets>
+      </ListCardUser>
     </Container>
   );
 };
