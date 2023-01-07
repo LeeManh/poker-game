@@ -125,7 +125,6 @@ const App = () => {
     setIsFlipCard(true);
 
     const arrayWinners = findWinner(listUser);
-    // console.log("arrayWinners", arrayWinners);
 
     const idsWinners = arrayWinners.map((user) => user.id);
 

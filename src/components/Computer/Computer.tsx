@@ -19,20 +19,20 @@ const Container = styled.div`
           top: 50%;
           left: 10%;
           transform: translateY(-50%);
+          flex-direction: row-reverse;
         `;
       case "right":
         return css`
           top: 50%;
           right: 10%;
           transform: translateY(-50%);
-          flex-direction: row-reverse;
         `;
       case "top":
         return css`
           top: 1rem;
           left: 50%;
           transform: translateX(-50%);
-          flex-direction: row-reverse;
+          flex-direction: column-reverse;
         `;
 
       default:
@@ -121,13 +121,6 @@ const Computer = ({ user, isFlipCard, winnerPlayers, bets }: IComputer) => {
 
   return (
     <Container position={user.position}>
-      <InforWrap>
-        <Name>{user.name}</Name>
-        <AvatarWrap>
-          <AvatarImage src={user.avatar} alt={user.name} />
-        </AvatarWrap>
-        <Money>{user.money}</Money>
-      </InforWrap>
       <ListCardUser>
         {isFlipCard && (
           <>
@@ -148,6 +141,13 @@ const Computer = ({ user, isFlipCard, winnerPlayers, bets }: IComputer) => {
             : `- ${bets}`}
         </MoneyBets>
       </ListCardUser>
+      <InforWrap>
+        <Name>{user.name}</Name>
+        <AvatarWrap>
+          <AvatarImage src={user.avatar} alt={user.name} />
+        </AvatarWrap>
+        <Money>{user.money}</Money>
+      </InforWrap>
     </Container>
   );
 };

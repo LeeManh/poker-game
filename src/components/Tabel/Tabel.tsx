@@ -19,50 +19,50 @@ const Tabel = ({ isStartDistributeCards, isFlipCard }: TabelProps) => {
   };
   const variants2 = {
     initial: { x: 8, y: -8, display: "none" },
-    end: { x: -2, y: 181, transition: { duration: 1, delay: 0.25 } },
+    end: { x: -2, y: 181, transition: { duration: 1, delay: 0 } },
   };
   const variants3 = {
     initial: { x: 8, y: -8, display: "none" },
-    end: { x: 90, y: 181, transition: { duration: 1, delay: 0.5 } },
+    end: { x: 90, y: 181, transition: { duration: 1, delay: 0 } },
   };
 
   const variants4 = {
     initial: { x: 8, y: -8, display: "none" },
-    end: { x: -435, y: -2, transition: { duration: 1, delay: 0.75 } },
+    end: { x: -435, y: -1, transition: { duration: 1, delay: 1 } },
   };
   const variants5 = {
     initial: { x: 8, y: -8, display: "none" },
-    end: { x: -435, y: -2, transition: { duration: 1, delay: 1 } },
+    end: { x: -346, y: -1, transition: { duration: 1, delay: 1 } },
   };
   const variants6 = {
     initial: { x: 8, y: -8, display: "none" },
-    end: { x: -435, y: -2, transition: { duration: 1, delay: 1.25 } },
+    end: { x: -256, y: -1, transition: { duration: 1, delay: 1 } },
   };
 
   const variants7 = {
     initial: { x: 8, y: -8, display: "none" },
-    end: { x: 436, y: -1, transition: { duration: 1, delay: 1.75 } },
+    end: { x: 435, y: -1, transition: { duration: 1, delay: 2 } },
   };
   const variants8 = {
     initial: { x: 8, y: -8, display: "none" },
-    end: { x: 436, y: -1, transition: { duration: 1, delay: 2 } },
+    end: { x: 346, y: -1, transition: { duration: 1, delay: 2 } },
   };
   const variants9 = {
     initial: { x: 8, y: -8, display: "none" },
-    end: { x: 436, y: -1, transition: { duration: 1, delay: 2.25 } },
+    end: { x: 256, y: -1, transition: { duration: 1, delay: 2 } },
   };
 
   const variants10 = {
     initial: { x: 8, y: -8, display: "none" },
-    end: { x: -90, y: -253, transition: { duration: 1, delay: 2.5 } },
+    end: { x: -90, y: -205, transition: { duration: 1, delay: 3 } },
   };
   const variants11 = {
     initial: { x: 8, y: -8, display: "none" },
-    end: { x: -90, y: -253, transition: { duration: 1, delay: 2.75 } },
+    end: { x: 0, y: -205, transition: { duration: 1, delay: 3 } },
   };
   const variants12 = {
     initial: { x: 8, y: -8, display: "none" },
-    end: { x: -90, y: -253, transition: { duration: 1, delay: 3 } },
+    end: { x: 90, y: -205, transition: { duration: 1, delay: 3 } },
   };
 
   return (
